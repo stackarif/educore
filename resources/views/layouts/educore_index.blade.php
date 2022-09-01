@@ -102,7 +102,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="header-logo">
-                            <a href="index.html"><img src="{{ asset($website->logo) }}" alt="Logo"></a>
+                            <a href="{{route('educore.home')}}"><img src="{{ asset($website->logo) }}" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-8 position-static">
