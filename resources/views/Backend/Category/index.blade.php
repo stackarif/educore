@@ -125,9 +125,9 @@
             name: {
                 required: true
             },
-            image :{
-                required: true
-            },
+            // image :{
+            //     required: true
+            // },
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {

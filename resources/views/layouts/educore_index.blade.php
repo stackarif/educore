@@ -1,7 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
-
+    @php
+        $website = App\Models\Website::first();
+        $webfooter = App\Models\WebsiteFooter::first();
+        $categories = App\Models\Category::with('children')->latest()->get();
+    @endphp
 
 <head>
     <meta charset="utf-8">
@@ -37,6 +40,8 @@
     <!--====== Main Style CSS ======-->
     {{-- <link rel="stylesheet" href="{{ asset('website') }}/css/style.css">  --}}
     <link rel="stylesheet" href="{{ asset('website') }}/css/style.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     
 </head>
 
@@ -79,8 +84,8 @@
                 <div class="header-top-wrapper d-flex flex-wrap justify-content-sm-between align-items-center">
                     <div class="header-top-left">
                         <ul class="header-meta d-flex justify-content-center">
-                            <li><a href="mailto://contact@educorebd.com" class="rt-line"><i class="mx-1 fas fa-envelope"></i>contact@educorebd.com</a></li>
-                            <li><a href="tel:+8801635518545" style="padding-left: 20px;"><i class="mx-1 fas fa-phone"></i>01635518545</a></li>
+                            <li><a href="{{ $website->email }}" class="rt-line"><i class="mx-1 fas fa-envelope"></i>{{ $website->email }}</a></li>
+                            <li><a href="{{ $website->phone }}" style="padding-left: 20px;"><i class="mx-1 fas fa-phone"></i>{{ $website->phone }}</a></li>
                         </ul>
                     </div>
                     <div class="header-top-right">
@@ -97,62 +102,33 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="header-logo">
-                            <a href="index.html"><img src="{{ asset('website') }}/images/logo/logo.png" alt="Logo"></a>
+                            <a href="index.html"><img src="{{ asset($website->logo) }}" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-8 position-static">
                         <div class="nav-toggle"></div>
                         <nav class="nav-menus-wrapper">
                             <ul class="nav-menu justify-content-center">
-                                <li>
-                                    <a class="active" href="{{route('educore.home')}}">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Us</a>
-                                    <ul class="nav-dropdown nav-submenu">
-                                        <li><a href="{{route('educore.about')}}">About</a></li>                                                                        
-                                        <li><a href="{{route('educore.success')}}">Success Story</a></li>
-                                        <li><a href="{{route('educore.faq')}}">FAQ'S</a></li>
-                                        <li><a href="{{route('educore.notice')}}">Notice</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Destination</a>
-                                    <ul class="nav-dropdown nav-submenu">
-                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/uk.png">Study in UK</a></li>
-                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/usa.png">Study in USA</a></li>
-                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/australia.png">Study in Australia</a></li>
-                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/canada.png">Study in Canada</a></li>
-                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/sweden.png">Study in Sweden</a></li>
-                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/malaysia.png">Study in Malaysia</a></li>
-                                    </ul>
-                                </li>
-                                <!-- <li><a href="services.html">Services</a></li> -->
-                                <li>
-                                    <a href="#">Services</a>
-                                    <ul class="nav-dropdown nav-submenu">
-                                        <li><a href="{{route('educore.services')}}">Education & Career Counseling</a></li>
-                                        <li><a href="{{route('educore.services')}}">Country, Course & University Selection</a></li>
-                                        <li><a href="{{route('educore.services')}}">Visa Application Guidance</a></li>
-                                        <li><a href="{{route('educore.services')}}">Interview Training</a></li>
-                                        <li><a href="{{route('educore.services')}}">Pre & Post Departure Services</a></li>
-                                        <li><a href="{{route('educore.services')}}">10 days free English</a></li>
-                                        <li><a href="{{route('educore.services')}}">Bank related support</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="{{route('educore.blog')}}">Blog</a></li>
-                                <li>
-                                    <a href="#">Media</a>
-                                    <ul class="nav-dropdown nav-submenu">
-                                        <li><a href="{{route('educore.gellary')}}">Gallery</a></li>
-                                        <!-- <li><a href="news.html">News</a></li>
-                                        <li><a href="event.html">Event</a></li> -->
-                                    </ul>
-                                </li>
-                                <li><a href="{{route('educore.contact')}}">Contact</a></li>
+                              @foreach ($categories as $category)
+                                    <li>
+                                        <a href="{{ route('category-product',$category->slug) }}"> {{ $category->name }} @if (count($category->children) != 0)
+                                            @endif
+                                        </a>  
+                                        @if (count($category->children) != 0)
+                                            <ul class="nav-dropdown nav-submenu">
+                                                @foreach ($category->children as $child)
+                                                <li> 
+                                                <a href="{{ route('sub-category-product',$child->slug) }}"> {{ $child->name }}</a>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
                             </ul>
                         </nav>
                     </div>
+                    
                     <div class="col-lg-2 position-static">
                         <div class="header-search">
                             <form action="#">
@@ -208,7 +184,7 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <div class="footer-link mt-45">
-                            <img src="{{ asset('website') }}/images/logo/logo.png" alt="logo" class="img-responsive">
+                            <img src="{{ asset($website->logo) }}" alt="logo" class="img-responsive">
                             <h5 style="color: #fff;">Your Success is Our Success</h5>
                             
                         </div>
@@ -244,14 +220,14 @@
                             <h4 class="footer-title">Contact Info</h4>
                             <ul class="link-list">
                                 <li>
-                                    <p>245, New Town, Marklen Street North City, New York, USA</p>
+                                    <p>{{ $webfooter->address ?? "NULL" }}</p>
                                 </li>
                                 <li>
-                                    <p><a href="tel:+01254659874">+01254 659 874 </a></p>
-                                    <p><a href="tel:+32145857458">+32145 857 458</a></p>
+                                    <p><a href="{{ $webfooter->phone }}">{{ $webfooter->phone ?? "NULL" }}</a></p>
+                                    <p><a href="{{ $webfooter->phone }}">{{ $webfooter->phone ?? "NULL" }}</a></p>
                                 </li>
                                 <li>
-                                    <p><a href="mailto://info@example.com">info@example.com</a></p>
+                                    <p><a href="{{ $webfooter->email }}">{{ $webfooter->email ?? "NULL" }}</a></p>
                                     <p></p>
                                 </li>
                             </ul>
@@ -261,10 +237,10 @@
                 <div class="footer-widget-wrapper">
                     <div class="footer-social">
                         <ul class="social">
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="{{ $webfooter->fb }}"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="{{ $webfooter->tw }}"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="{{ $webfooter->ins }}"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="{{ $webfooter->link }}"><i class="fab fa-linkedin-in"></i></a></li>
                         </ul>
                     </div>
                     <div class="footer-menu">
@@ -333,6 +309,16 @@
 
   <!--====== Main Activation  js ======-->
   <script src="{{ asset('website') }}/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <script>
+    @if(Session::has('success'))
+    toastr.success("{{ Session::get('success') }}");
+    @endif
+    $(document).ready(function () {
+      bsCustomFileInput.init()
+    })
+  </script>
 
     
 </body>

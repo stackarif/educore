@@ -24,15 +24,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link ">
-              
-              <i class="nav-icon fas fa-globe-asia text-warning"></i>
-              <p>
-                Blog
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-              <ul class="nav nav-treeview">
+           
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
@@ -51,13 +43,28 @@
                     <p>Slider</p>
                   </a>
                 </li>
-                <li class="nav-item mt-auto">
+                {{-- <li class="nav-item mt-auto">
                   <a href="{{ route('category.index') }}" class="nav-link {{ (request()->is('blogadmin/category*')) ? 'active': '' }}">
                     <i class="nav-icon fas fa-tags"></i>
                     <p>
                       Categories
                     </p>
                   </a>                    
+                </li> --}}
+                <li class="nav-item">
+                  <a class="nav-link @if ($navItem === 'category')
+                  active
+                  @endif" href="{{ route('admin.category.index') }}">
+                  <i class="nav-icon fas fa-tags"></i>
+                  <p>Category</p>
+                  </a>
+                </li>
+
+                <li class="nav-item mt-auto">
+                  <a class="nav-link {{ (request()->is('admin/sub-category*')) ? 'active': '' }}" href="{{ route('admin.sub-category.index') }}">
+                    <i class="nav-icon fas fa-tags"></i>
+                    <p>Sub Category</p>
+                  </a>
                 </li>
                 <li class="nav-item mt-auto">
                   <a href="{{ route('tag.index') }}" class="nav-link {{ (request()->is('blogadmin/tag*')) ? 'active': '' }}">
@@ -67,13 +74,21 @@
                     </p>
                   </a>                    
                 </li>
-                <li class="nav-item mt-auto">
+                {{-- <li class="nav-item mt-auto">
                   <a href="{{ route('post.index') }}" class="nav-link {{ (request()->is('blogadmin/post*')) ? 'active': '' }}">
                     <i class="nav-icon fas fa-pen-square"></i>
                     <p>
                       Post
                     </p>
                   </a>                    
+                </li> --}}
+                <li class="nav-item mt-auto">
+                  <a class="nav-link @if ($navItem === 'product')
+                  active
+                  @endif" href="{{ route('admin.product.index') }}">
+                    <i class="nav-icon fab fa-product-hunt"></i>
+                    <p>Post</p>
+                  </a>
                 </li>
                 <li class="nav-item mt-auto">
                   <a href="{{ route('contact.index') }}" class="nav-link {{ (request()->is('blogadmin/contact*')) ? 'active': '' }}">
@@ -86,7 +101,7 @@
                 <li class="nav-item menu-open">
                   <a href="#" class="nav-link ">
                     
-                    <i class="nav-icon fas fa-globe-asia text-warning"></i>
+                    <i class="nav-icon fas fa-globe-asia "></i>
                     <p>
                       Website
                       <i class="right fas fa-angle-left"></i>
@@ -98,7 +113,7 @@
                       active
                       
                       @endif" href="{{ route('admin.website.index') }}">
-                      <i class="far fa-circle nav-icon text-warning"></i>
+                      <i class="far fa-circle nav-icon "></i>
                         <p>Top Details</p>
                       </a>
                     </li>
@@ -107,7 +122,7 @@
                       active
                       
                       @endif" href="{{ route('admin.website_footer.index') }}">
-                      <i class="far fa-circle nav-icon text-warning"></i>
+                      <i class="far fa-circle nav-icon "></i>
                       <p>Footer Details</p>
                       </a>
                     </li>
@@ -147,7 +162,7 @@
                     </p>
                   </a>                    
                 </li>
-              </ul>
+              
           </li>
          
           @auth('admin')

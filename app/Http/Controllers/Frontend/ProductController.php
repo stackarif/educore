@@ -26,13 +26,21 @@ class ProductController extends Controller
         return Product::where('name', 'like', "%$query%")->get(['name', 'slug']);
     }
 
+    // public function categoryWiseProducts(Category $slug)
+    // {
+    //     $data = [];
+    //     $data['products'] = $slug->products()->paginate(3);
+    //     $data['colors'] = Color::with('products:color_id')->latest()->get(['name', 'slug', 'id']);
+    //     $data['sizes'] = Size::with('products:size_id')->latest()->get(['name', 'slug', 'id']);
+    //     return view('shop', $data);
+    // }
     public function categoryWiseProducts(Category $slug)
     {
         $data = [];
         $data['products'] = $slug->products()->paginate(3);
         $data['colors'] = Color::with('products:color_id')->latest()->get(['name', 'slug', 'id']);
         $data['sizes'] = Size::with('products:size_id')->latest()->get(['name', 'slug', 'id']);
-        return view('shop', $data);
+        return view('website.categorieswise', $data);
     }
 
     public function subCategoryWiseProducts(SubCategory $slug)
@@ -41,6 +49,6 @@ class ProductController extends Controller
         $data['products'] = $slug->products()->paginate(3);
         $data['colors'] = Color::with('products:color_id')->latest()->get(['name', 'slug', 'id']);
         $data['sizes'] = Size::with('products:size_id')->latest()->get(['name', 'slug', 'id']);
-        return view('shop', $data);
+        return view('website.categorieswise', $data);
     }
 }

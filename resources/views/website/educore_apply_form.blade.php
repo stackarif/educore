@@ -24,7 +24,8 @@
                 <div class="info-form apply-form">
                     <h2 class="text-center pb-10 pt-10">ADMISSION ONLINE</h2>
                     <p class="text-center mb-10">Please complete each section of the form</p>
-                    <form action="">
+                    <form action="{{ route('educore.apply_form') }}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 px-0">
                                 <div class="single-form">

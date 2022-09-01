@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
         if ($this->method() === 'POST') {
             return [
                 'name' => "required|unique:categories,name",
-                'image' => ['required', 'image', 'mimes:png,jpg,jpeg']
+                //'image' => ['required', 'image', 'mimes:png,jpg,jpeg']
             ];
         } else {
             return [

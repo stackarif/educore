@@ -14,6 +14,7 @@ use App\Http\Controllers\Blog\{
     TagController,
 };
 use App\Http\Controllers\Frontend\{
+    AdmissionController,
     CartController,
     CompareController,
     ContactController,
@@ -124,7 +125,9 @@ Route::get('sorting/{query}', [ShopController::class, 'sortingProduct'])->name('
 
 Route::get('product/{product}', [ProductController::class, 'singleProduct'])->name('single-product');
 Route::get('search-product/{query}', [ProductController::class, 'dynamicSearch'])->name('dynamic-search');
+// Route::get('/category-product/{slug}', [ProductController::class, 'categoryWiseProducts'])->name('category-product');
 Route::get('/category-product/{slug}', [ProductController::class, 'categoryWiseProducts'])->name('category-product');
+
 Route::get('/sub-category-product/{slug}', [ProductController::class, 'subCategoryWiseProducts'])->name('sub-category-product');
 
 
@@ -228,7 +231,8 @@ Route::get('/educore/blog', [BlogFrontendController::class,'educore_blog'])->nam
 Route::get('/educore/blog_details', [BlogFrontendController::class,'educore_blog_details'])->name('educore._blog_details');
 Route::get('/educore/gellary', [BlogFrontendController::class,'media_gellary'])->name('educore.gellary');
 Route::get('/educore/contact', [BlogFrontendController::class,'educore_contact'])->name('educore.contact');
-Route::get('/educore/apply_form', [BlogFrontendController::class,'educore_apply_form'])->name('educore.apply_form');
+Route::get('/educore/admission', [AdmissionController::class,'admission_form'])->name('educore.apply_form');
+Route::post('/educore/admission', [AdmissionController::class,'store']);
 
 //Mini blog
 Route::get('/home_blog', [BlogFrontendController::class,'home'])->name('website');

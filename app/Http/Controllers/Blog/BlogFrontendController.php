@@ -72,7 +72,7 @@ class BlogFrontendController extends Controller
 
     }
 
-    public function educore_apply_form(){
+    public function admission_form(){
         return view('website.educore_apply_form');
     }
 
