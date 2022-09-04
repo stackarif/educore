@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\NexmoController;
 use App\Http\Controllers\Blog\{
     BlogCategoryController,
@@ -233,6 +234,9 @@ Route::get('/educore/gellary', [BlogFrontendController::class,'media_gellary'])-
 Route::get('/educore/contact', [BlogFrontendController::class,'educore_contact'])->name('educore.contact');
 Route::get('/educore/admission', [AdmissionController::class,'admission_form'])->name('educore.apply_form');
 Route::post('/educore/admission', [AdmissionController::class,'store']);
+
+#menu
+Route::resource('/about_us', AboutUsController::class)->except(['create', 'store', 'destroy', 'show']);
 
 //Mini blog
 Route::get('/home_blog', [BlogFrontendController::class,'home'])->name('website');

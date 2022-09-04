@@ -27,6 +27,7 @@ class WebsiteControllerFooter extends Controller
      */
     public function update(Request $request,  $id)
     {
+        return $request;
         $web              = WebsiteFooter::find($id);
         $web->email       = $request->email;
         $web->address     = $request->address;

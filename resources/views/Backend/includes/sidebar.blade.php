@@ -66,13 +66,13 @@
                     <p>Sub Category</p>
                   </a>
                 </li>
-                <li class="nav-item mt-auto">
-                  <a href="{{ route('tag.index') }}" class="nav-link {{ (request()->is('blogadmin/tag*')) ? 'active': '' }}">
-                    <i class="nav-icon fas fa-tag"></i>
-                    <p>
-                      Tags
-                    </p>
-                  </a>                    
+                <li class="nav-item">
+                  <a class="nav-link @if ($navItem === 'aboutUs')
+                  active
+                  @endif" href="{{ route('about_us.index') }}">
+                  <i class="nav-icon fas fa-tags"></i>
+                  <p>About us</p>
+                  </a>
                 </li>
                 {{-- <li class="nav-item mt-auto">
                   <a href="{{ route('post.index') }}" class="nav-link {{ (request()->is('blogadmin/post*')) ? 'active': '' }}">

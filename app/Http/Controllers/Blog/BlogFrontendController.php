@@ -91,16 +91,14 @@ class BlogFrontendController extends Controller
         $lastFooterPost = $footerPosts->splice(0, 1);
 
         $recentPosts = Blogpost::with('blogcategory', 'user')->orderBy('created_at', 'DESC')->paginate(9);
-        return view('website.home', compact(['posts', 'recentPosts', 'firstPosts2', 'middlePost', 'lastPosts', 'firstFooterPost', 'firstfooterPosts2', 'lastFooterPost']));
-        return view('website.home');
+        return view('website_blog.home', compact(['posts', 'recentPosts', 'firstPosts2', 'middlePost', 'lastPosts', 'firstFooterPost', 'firstfooterPosts2', 'lastFooterPost']));
 
     }
 
     public function about(){
         $user = BlogUser::first();
 
-        return view('website.about', compact('user'));
-        return view('website.about');
+        return view('website_blog.about', compact('user'));
 
     }
 
@@ -109,7 +107,7 @@ class BlogFrontendController extends Controller
         if($category){
             $posts = Blogpost::where('category_id', $category->id)->paginate(9);
 
-            return view('website.category', compact(['category', 'posts']));
+            return view('website_blog.category', compact(['category', 'posts']));
         }else {
             return redirect()->route('website');
         }
@@ -120,14 +118,14 @@ class BlogFrontendController extends Controller
         if($tag){
             $posts = $tag->blogposts()->orderBy('created_at', 'desc')->paginate(9);
 
-            return view('website.tag', compact(['tag', 'posts']));
+            return view('website_blog.tag', compact(['tag', 'posts']));
         }else {
             return redirect()->route('website');
         }
     }
    
     public function contact(){
-            return view('website.contact');
+            return view('website_blog.contact');
     }
    
     public function post($slug){
@@ -144,7 +142,7 @@ class BlogFrontendController extends Controller
         $tags = Btag::all();
 
         if($post){
-            return view('website.post', compact(['post', 'posts', 'categories', 'tags', 'firstRelatedPost', 'firstRelatedPosts2', 'lastRelatedPost']));
+            return view('website_blog.post', compact(['post', 'posts', 'categories', 'tags', 'firstRelatedPost', 'firstRelatedPosts2', 'lastRelatedPost']));
         }else {
             return redirect('/');
         }

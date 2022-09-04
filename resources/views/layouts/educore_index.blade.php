@@ -3,7 +3,7 @@
     @php
         $website = App\Models\Website::first();
         $webfooter = App\Models\WebsiteFooter::first();
-        $categories = App\Models\Category::with('children')->latest()->get();
+        // $categories = App\Models\Category::with('children')->latest()->get();
     @endphp
 
 <head>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="col-lg-8 position-static">
                         <div class="nav-toggle"></div>
-                        <nav class="nav-menus-wrapper">
+                        {{-- <nav class="nav-menus-wrapper">
                             <ul class="nav-menu justify-content-center">
                               @foreach ($categories as $category)
                                     <li>
@@ -125,6 +125,56 @@
                                         @endif
                                     </li>
                                 @endforeach
+                            </ul>
+                        </nav> --}}
+                        <nav class="nav-menus-wrapper">
+                            <ul class="nav-menu justify-content-center">
+                                <li>
+                                    <a class="active" href="{{route('educore.home')}}">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">About Us</a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <li><a href="{{route('educore.about')}}">About</a></li>                                                                        
+                                        <li><a href="{{route('educore.success')}}">Success Story</a></li>
+                                        <li><a href="{{route('educore.faq')}}">FAQ'S</a></li>
+                                        <li><a href="{{route('educore.notice')}}">Notice</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Destination</a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/uk.png">Study in UK</a></li>
+                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/usa.png">Study in USA</a></li>
+                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/australia.png">Study in Australia</a></li>
+                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/canada.png">Study in Canada</a></li>
+                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/sweden.png">Study in Sweden</a></li>
+                                        <li><a href="{{route('educore.destination_uk')}}"><img src="{{ asset('website') }}/images/flag/malaysia.png">Study in Malaysia</a></li>
+                                    </ul>
+                                </li>
+                                <!-- <li><a href="services.html">Services</a></li> -->
+                                <li>
+                                    <a href="#">Services</a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <li><a href="{{route('educore.services')}}">Education & Career Counseling</a></li>
+                                        <li><a href="{{route('educore.services')}}">Country, Course & University Selection</a></li>
+                                        <li><a href="{{route('educore.services')}}">Visa Application Guidance</a></li>
+                                        <li><a href="{{route('educore.services')}}">Interview Training</a></li>
+                                        <li><a href="{{route('educore.services')}}">Pre & Post Departure Services</a></li>
+                                        <li><a href="{{route('educore.services')}}">10 days free English</a></li>
+                                        <li><a href="{{route('educore.services')}}">Bank related support</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{{route('educore.blog')}}">Blog</a></li>
+                                <li>
+                                    <a href="#">Media</a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <li><a href="{{route('educore.gellary')}}">Gallery</a></li>
+                                        <!-- <li><a href="news.html">News</a></li>
+                                        <li><a href="event.html">Event</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a href="{{route('educore.contact')}}">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
